@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpService } from '../http.service'
 
 @Component({
   selector: 'app-list',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListComponent implements OnInit {
 
-  constructor() { }
+  brews: Object;
 
+  constructor(private _http: HttpService) { }
+
+  // Life cycle hook, whatever is inside here runs when the component is loaded
   ngOnInit() {
+    this._http.getBeer().subscribe(data => {
+      this.brews = data;
+      console.log(this.brews);
+    })
   }
 
 }
